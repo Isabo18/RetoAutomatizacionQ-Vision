@@ -1,0 +1,64 @@
+
+defaultTasks 'clena', 'test', 'aggregate'
+
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        // De aqui viene el plugin aggregator que esta en la linea 4
+        classpath("net.serenity-bdd:serenity-gradle-plugin:2.0.80")
+    }
+}
+
+
+
+// Para agregar un comando que se llama aggregate, que es de Serenity y es para construir el reporte
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'net.serenity-bdd.aggregator'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+ext{
+    serenityVersion = '2.1.0'
+    serenityCucumberVersion = '1.9.48'
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+// Dependencias para poder automatizar con Serenity
+    implementation 'org.apache.logging.log4j:log4j-api:2.6.1'
+    implementation 'org.apache.logging.log4j:log4j-core:2.6.1'
+    implementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testImplementation 'org.slf4j:slf4j-simple:1.7.21'
+
+    testImplementation "net.serenity-bdd:serenity-core:$rootProject.ext.serenityVersion"
+    testImplementation "net.serenity-bdd:serenity-junit:$rootProject.ext.serenityVersion"
+    implementation "net.serenity-bdd:serenity-cucumber:$rootProject.ext.serenityCucumberVersion"
+    implementation group: 'net.serenity-bdd', name: 'serenity-ensure', version: '2.0.49'
+
+}
+
+// Para configurar propiedades del comando de ejecucion de pruebas con Gradle
+test {
+//Ignorar los fallos es ejecutar todas las pruebas asi alguna falle
+    ignoreFailures = true
+}
+
+// Configurar el encoding del proyecto
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+// Continue asi falle alguna tarea de Gradle
+gradle.startParameter.continueOnFailure = true

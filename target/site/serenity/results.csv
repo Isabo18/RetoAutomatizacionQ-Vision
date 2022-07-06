@@ -1,0 +1,4 @@
+"Story","Title","Result","Date","Stability","Duration (s)"
+"Login SawgLabs Pages","successful login scenario","SUCCESS","2022-07-05T16:14:33.667955-05:00[America/Bogota]","0.0","5.2"
+"Login SawgLabs Pages","login failed","SUCCESS","2022-07-05T16:14:40.019928-05:00[America/Bogota]","0.0","3.35"
+"Product purchase","buy a product","SUCCESS","2022-07-05T16:14:46.9363634-05:00[America/Bogota]","0.0","5.69"
